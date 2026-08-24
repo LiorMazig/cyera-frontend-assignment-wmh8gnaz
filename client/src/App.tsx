@@ -7,6 +7,7 @@ import { ErrorMessage } from './components/ErrorMessage';
 import { useCloudProviders } from './api/useCloudProviders';
 import { useScans } from './api/useScans';
 import { ApiError } from './api/types';
+import { toProviderOptions } from './utils/cloud-providers';
 
 export default function App() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -34,10 +35,7 @@ export default function App() {
       <div className="filters">
         <YearPicker value={year} onChange={setYear} disableFuture />
         <CloudPrivderSelect
-          options={cloudProviders.map((provider) => ({
-            displayName: provider.displayName,
-            value: provider.id,
-          }))}
+          options={toProviderOptions(cloudProviders)}
           onChange={setSelectedProviders}
           selectedOptions={selectedProviders}
         />

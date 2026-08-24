@@ -26,3 +26,7 @@ export const HEATMAP_LEVEL_RATIOS = [0.25, 0.5, 0.75] as const;
 
 export const SCANS_QUERY_KEY = 'scans';
 export const CLOUD_PROVIDERS_QUERY_KEY = 'cloud-providers';
+
+export const CLOUD_PROVIDERS_LABEL = 'Cloud Providers';
+/** Shown when nothing is selected — no filter means every provider. */
+export const ALL_PROVIDERS_LABEL = 'All providers';
