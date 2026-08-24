@@ -1,13 +1,37 @@
+:root {
+  --page-background: black;
+  --page-text: white;
+  --muted-text: #9e9e9e;
+  --panel-background: #242424;
+  --panel-border: #3d3d3d;
+  --box-outline: white;
+  --skeleton-box: #2a2a2a;
+}
+
+/*
+ * Light mode only adds rules — the dark palette above and the color1…color5
+ * classes below keep their original values and stay the default.
+ */
+:root[data-theme='light'] {
+  --page-background: white;
+  --page-text: #1c2024;
+  --muted-text: #57606a;
+  --panel-background: #f2f3f5;
+  --panel-border: #d8dce1;
+  --box-outline: #1c2024;
+  --skeleton-box: #e6e8ea;
+}
+
 body {
-  background: black;
-  color: white;
+  background: var(--page-background);
+  color: var(--page-text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .app {
   padding: 10px;
-  color: white;
+  color: var(--page-text);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -33,6 +57,26 @@ body {
   background: #bd30ff;
 }
 
+:root[data-theme='light'] .color1 {
+  background: #ebedf0;
+}
+
+:root[data-theme='light'] .color2 {
+  background: #9be9a8;
+}
+
+:root[data-theme='light'] .color3 {
+  background: #40c463;
+}
+
+:root[data-theme='light'] .color4 {
+  background: #30a14e;
+}
+
+:root[data-theme='light'] .color5 {
+  background: #216e39;
+}
+
 .filters {
   display: flex;
   justify-content: center;
@@ -46,12 +90,12 @@ body {
   align-items: center;
   gap: 8px;
   width: fit-content;
-  background-color: #242424;
+  background-color: var(--panel-background);
   border-radius: 6px;
 }
 
 .select {
-  background-color: #242424;
+  background-color: var(--panel-background);
   border-radius: 6px;
 }
 
@@ -71,7 +115,7 @@ body {
 
 .heatmap-month-label {
   font-size: 12px;
-  color: #9e9e9e;
+  color: var(--muted-text);
 }
 
 .heatmap-box {
@@ -82,11 +126,11 @@ body {
 
 .heatmap-empty {
   font-size: 14px;
-  color: #9e9e9e;
+  color: var(--muted-text);
 }
 
 .heatmap-box--loading {
-  background: #2a2a2a;
+  background: var(--skeleton-box);
   animation: heatmap-box-pulse 1.2s ease-in-out infinite;
 }
 
@@ -107,8 +151,8 @@ body {
   gap: 8px;
   padding: 24px;
   width: fit-content;
-  background-color: #242424;
-  border: 1px solid #3d3d3d;
+  background-color: var(--panel-background);
+  border: 1px solid var(--panel-border);
   border-radius: 6px;
 }
 
@@ -119,7 +163,7 @@ body {
 
 .error-state-message {
   font-size: 14px;
-  color: #9e9e9e;
+  color: var(--muted-text);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,7 +185,7 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: #9e9e9e;
+  color: var(--muted-text);
 }
 
 .heatmap-legend-caption {
@@ -156,7 +200,7 @@ body {
 }
 
 .heatmap-legend-swatch--active {
-  outline: 1px solid white;
+  outline: 1px solid var(--box-outline);
   outline-offset: 1px;
 }
 
@@ -165,7 +209,7 @@ body {
 }
 
 .heatmap-box--matched {
-  outline: 1px solid white;
+  outline: 1px solid var(--box-outline);
   outline-offset: -1px;
 }
 

@@ -16,5 +16,7 @@
   "providers.aws": "אמזון AWS",
   "providers.azure": "מיקרוסופט Azure",
   "providers.gcp": "גוגל קלאוד",
-  "providers.microsoft365": "מיקרוסופט 365"
+  "providers.microsoft365": "מיקרוסופט 365",
+  "theme.switchToLight": "מעבר למצב בהיר",
+  "theme.switchToDark": "מעבר למצב כהה"
 }

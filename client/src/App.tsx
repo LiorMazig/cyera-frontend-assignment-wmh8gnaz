@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './styles.css';
 import { YearPicker } from './components/YearPicker';
 import { CloudPrivderSelect } from './components/CloudPrivderSelect';
+import { ColorSchemeToggle } from './components/ColorSchemeToggle';
 import { ErrorMessage } from './components/ErrorMessage';
 import { HeatmapPanel } from './components/HeatmapPanel';
 import { useCloudProviders } from './api/useCloudProviders';
@@ -40,6 +41,7 @@ export default function App() {
           onChange={setSelectedProviders}
           selectedOptions={selectedProviders}
         />
+        <ColorSchemeToggle />
       </div>
       <HeatmapPanel
         scans={scansQuery.data ?? []}

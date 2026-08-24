@@ -16,5 +16,7 @@
   "providers.aws": "AWS",
   "providers.azure": "Azure",
   "providers.gcp": "Google Cloud",
-  "providers.microsoft365": "Microsoft 365"
+  "providers.microsoft365": "Microsoft 365",
+  "theme.switchToLight": "Switch to light mode",
+  "theme.switchToDark": "Switch to dark mode"
 }

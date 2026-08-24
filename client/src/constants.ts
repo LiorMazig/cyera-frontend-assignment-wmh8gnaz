@@ -13,3 +13,5 @@ export const HEATMAP_LEVEL_RATIOS = [0.25, 0.5, 0.75] as const;
 
 export const SCANS_QUERY_KEY = 'scans';
 export const CLOUD_PROVIDERS_QUERY_KEY = 'cloud-providers';
+
+export const COLOR_SCHEME_STORAGE_KEY = 'cyera-heatmap-color-scheme';

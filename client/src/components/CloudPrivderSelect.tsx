@@ -43,11 +43,10 @@ export const CloudPrivderSelect = ({
   return (
     <div className={'select'}>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="cloud-providers-label" shrink sx={{ color: 'white' }}>
+        <InputLabel id="cloud-providers-label" shrink>
           {t('filters.cloudProviders')}
         </InputLabel>
         <Select
-          style={{ color: 'white' }}
           labelId="cloud-providers-label"
           id="cloud-providers"
           multiple

@@ -16,18 +16,14 @@ export const YearPicker = ({
   return (
     <div className="year-picker">
       <IconButton onClick={() => onChange?.(value - 1)}>
-        <ArrowBack
-          style={{ color: 'white' }}
-          fontSize={'small'}
-          color="primary"
-        />
+        <ArrowBack fontSize={'small'} />
       </IconButton>
       <div> {value} </div>
       <IconButton
         disabled={disableFuture && value >= new Date().getFullYear()}
         onClick={() => onChange?.(value + 1)}
       >
-        <ArrowForward style={{ color: 'white' }} fontSize={'small'} />
+        <ArrowForward fontSize={'small'} />
       </IconButton>
     </div>
   );

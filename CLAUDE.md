@@ -21,6 +21,7 @@ client/src/
   i18n/         locale json files, the translate function, the provider
   hooks/        React-coupled logic that is not api access (derived state)
   utils/        pure functions — no React, no side effects, independently testable
+  theme/        the color-scheme provider (MUI palette + the data-theme attribute)
   types/        client-only types (view models, not api shapes)
 ```
 
@@ -63,6 +64,9 @@ Rules:
 
 - Keep diffs minimal and scoped; preserve existing behavior, names, and API contracts.
 - Reuse the existing `color1`…`color5` classes in `styles.css` — do not restyle or rename them.
+  A second color scheme is added as `:root[data-theme='…'] .colorN` overrides, never by
+  editing the originals. Page chrome uses the css variables at the top of `styles.css`;
+  no component hardcodes a color, and no inline style sets one (it would beat the theme).
 - Centralize magic numbers and repeated strings in `constants.ts`.
 - Never edit `server/src/api/scan/scan.repository.ts` (marked DO NOT EDIT).
 - Do not touch lockfiles. Adding a dependency needs an explicit ask first.
