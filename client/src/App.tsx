@@ -68,7 +68,7 @@ export default function App() {
           selectedOptions={selectedProviders}
         />
       </div>
-      <Heatmap scans={scans} />
+      <Heatmap scans={scans} year={year} />
     </div>
   );
 }
