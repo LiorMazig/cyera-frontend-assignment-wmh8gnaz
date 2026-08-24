@@ -129,9 +129,15 @@ body {
   color: var(--muted-text);
 }
 
-.heatmap-box--loading {
+.heatmap-box--loading,
+.heatmap-legend-swatch--loading {
   background: var(--skeleton-box);
   animation: heatmap-box-pulse 1.2s ease-in-out infinite;
+}
+
+/* The placeholder swatch is not a control, so it must not look like one. */
+.heatmap-legend-swatch--loading {
+  cursor: default;
 }
 
 @keyframes heatmap-box-pulse {
@@ -167,7 +173,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heatmap-box--loading {
+  .heatmap-box--loading,
+  .heatmap-legend-swatch--loading {
     animation: none;
     opacity: 0.6;
   }
