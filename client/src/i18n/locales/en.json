@@ -18,5 +18,7 @@
   "providers.gcp": "Google Cloud",
   "providers.microsoft365": "Microsoft 365",
   "theme.switchToLight": "Switch to light mode",
-  "theme.switchToDark": "Switch to dark mode"
+  "theme.switchToDark": "Switch to dark mode",
+  "errors.crashTitle": "Something went wrong",
+  "actions.reload": "Reload the page"
 }

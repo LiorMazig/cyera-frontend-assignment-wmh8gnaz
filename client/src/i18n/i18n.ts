@@ -39,8 +39,13 @@ export const translate = (
   language: Language,
   key: TranslationKey,
   params?: TranslationParams
-): string =>
-  interpolate(LOCALES[language][key] ?? LOCALES[DEFAULT_LANGUAGE][key], params);
+): string => {
+  const template =
+    LOCALES[language]?.[key] ?? LOCALES[DEFAULT_LANGUAGE][key];
+
+  // Showing the key beats throwing on a template that is somehow missing.
+  return typeof template === 'string' ? interpolate(template, params) : key;
+};
 
 /**
  * Translates a key that may not exist — used for server-provided names, where a
@@ -52,7 +57,7 @@ export const translateOptional = (
   fallback: string,
   params?: TranslationParams
 ): string =>
-  key in LOCALES[language]
+  LOCALES[language] && key in LOCALES[language]
     ? translate(language, key as TranslationKey, params)
     : fallback;
 

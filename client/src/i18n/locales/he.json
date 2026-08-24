@@ -18,5 +18,7 @@
   "providers.gcp": "גוגל קלאוד",
   "providers.microsoft365": "מיקרוסופט 365",
   "theme.switchToLight": "מעבר למצב בהיר",
-  "theme.switchToDark": "מעבר למצב כהה"
+  "theme.switchToDark": "מעבר למצב כהה",
+  "errors.crashTitle": "משהו נשבר",
+  "actions.reload": "רענון הדף"
 }
