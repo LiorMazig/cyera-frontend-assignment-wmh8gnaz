@@ -98,3 +98,41 @@ export const buildHeatmapData = (
 
   return { months, maxDailyScans };
 };
+
+/** Every level a box can have, low to high — the legend iterates this. */
+export const HEATMAP_LEVELS: HeatmapLevel[] = [1, 2, 3, 4, 5];
+
+/**
+ * Percentage bounds a level covers, derived from the same ratios `getScanLevel`
+ * uses so the legend cannot drift from the coloring. `null` for level 1, which
+ * is "no scans" rather than a range.
+ */
+export const getLevelPercentRange = (
+  level: HeatmapLevel
+): { from: number; to: number } | null => {
+  if (level === 1) return null;
+
+  const toRatio = HEATMAP_LEVEL_RATIOS[level - 2] ?? 1;
+  const fromRatio = HEATMAP_LEVEL_RATIOS[level - 3] ?? 0;
+
+  return { from: Math.round(fromRatio * 100) + 1, to: Math.round(toRatio * 100) };
+};
+
+/**
+ * Classes for a single box. While a legend level is hovered, boxes of other
+ * levels are dimmed — dimming the rest is what makes the hovered level read.
+ */
+export const getBoxClassName = (
+  level: HeatmapLevel,
+  hoveredLevel: HeatmapLevel | null
+): string => {
+  const classNames = ['heatmap-box', `color${level}`];
+
+  if (hoveredLevel) {
+    classNames.push(
+      level === hoveredLevel ? 'heatmap-box--matched' : 'heatmap-box--dimmed'
+    );
+  }
+
+  return classNames.join(' ');
+};

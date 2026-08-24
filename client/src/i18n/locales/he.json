@@ -8,5 +8,9 @@
   "heatmap.tooltip": "{{count}} סריקות ב-{{date}}",
   "heatmap.tooltipSingle": "סריקה אחת ב-{{date}}",
   "heatmap.empty": "אין ימים להצגה עבור {{year}}.",
-  "heatmap.loading": "טוען סריקות"
+  "heatmap.loading": "טוען סריקות",
+  "legend.less": "פחות",
+  "legend.more": "יותר",
+  "legend.noScans": "אין סריקות",
+  "legend.range": "{{from}}–{{to}}% מהיום העמוס ביותר"
 }

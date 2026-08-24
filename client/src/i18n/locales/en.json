@@ -8,5 +8,9 @@
   "heatmap.tooltip": "{{count}} scans on {{date}}",
   "heatmap.tooltipSingle": "1 scan on {{date}}",
   "heatmap.empty": "No days to display for {{year}}.",
-  "heatmap.loading": "Loading scans"
+  "heatmap.loading": "Loading scans",
+  "legend.less": "Less",
+  "legend.more": "More",
+  "legend.noScans": "No scans",
+  "legend.range": "{{from}}–{{to}}% of the busiest day"
 }
