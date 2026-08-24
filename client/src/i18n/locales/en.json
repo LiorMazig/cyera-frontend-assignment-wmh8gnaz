@@ -12,5 +12,9 @@
   "legend.less": "Less",
   "legend.more": "More",
   "legend.noScans": "No scans",
-  "legend.range": "{{from}}–{{to}}% of the busiest day"
+  "legend.range": "{{from}}–{{to}}% of the busiest day",
+  "providers.aws": "AWS",
+  "providers.azure": "Azure",
+  "providers.gcp": "Google Cloud",
+  "providers.microsoft365": "Microsoft 365"
 }

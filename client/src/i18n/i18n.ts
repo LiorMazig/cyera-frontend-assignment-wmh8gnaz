@@ -42,6 +42,20 @@ export const translate = (
 ): string =>
   interpolate(LOCALES[language][key] ?? LOCALES[DEFAULT_LANGUAGE][key], params);
 
+/**
+ * Translates a key that may not exist — used for server-provided names, where a
+ * locale file can override the value but is not required to carry one.
+ */
+export const translateOptional = (
+  language: Language,
+  key: string,
+  fallback: string,
+  params?: TranslationParams
+): string =>
+  key in LOCALES[language]
+    ? translate(language, key as TranslationKey, params)
+    : fallback;
+
 /** Matches a browser language tag (`he`, `he-IL`, `en-GB`) to a supported language. */
 export const resolveLanguage = (
   languageTag: string | undefined

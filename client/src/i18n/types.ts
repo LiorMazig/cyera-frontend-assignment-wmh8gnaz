@@ -14,3 +14,10 @@ export type Translate = (
   key: TranslationKey,
   params?: TranslationParams
 ) => string;
+
+/** Translate a key that may be absent, falling back to the given text. */
+export type TranslateOptional = (
+  key: string,
+  fallback: string,
+  params?: TranslationParams
+) => string;

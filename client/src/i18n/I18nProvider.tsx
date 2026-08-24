@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
-import { LOCALE_TAGS, resolveLanguage, translate } from './i18n';
-import { Language, Translate } from './types';
+import { LOCALE_TAGS, resolveLanguage, translate, translateOptional } from './i18n';
+import { Language, Translate, TranslateOptional } from './types';
 
 export interface I18nContextValue {
   language: Language;
@@ -8,6 +8,8 @@ export interface I18nContextValue {
   locale: string;
   setLanguage: (language: Language) => void;
   t: Translate;
+  /** For keys that may not exist, e.g. names coming from the server. */
+  tOr: TranslateOptional;
 }
 
 export const I18nContext = createContext<I18nContextValue | undefined>(
@@ -33,9 +35,15 @@ export const I18nProvider = ({
     [language]
   );
 
+  const tOr: TranslateOptional = useCallback(
+    (key, fallback, params) =>
+      translateOptional(language, key, fallback, params),
+    [language]
+  );
+
   const value = useMemo<I18nContextValue>(
-    () => ({ language, locale: LOCALE_TAGS[language], setLanguage, t }),
-    [language, t]
+    () => ({ language, locale: LOCALE_TAGS[language], setLanguage, t, tOr }),
+    [language, t, tOr]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

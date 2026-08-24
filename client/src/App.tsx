@@ -7,7 +7,7 @@ import { HeatmapPanel } from './components/HeatmapPanel';
 import { useCloudProviders } from './api/useCloudProviders';
 import { useScans } from './api/useScans';
 import { ApiError } from './api/types';
-import { toProviderOptions } from './utils/cloud-providers';
+import { useProviderOptions } from './hooks/useProviderOptions';
 
 export default function App() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -16,6 +16,7 @@ export default function App() {
 
   const cloudProvidersQuery = useCloudProviders();
   const scansQuery = useScans(year, selectedProviders);
+  const providerOptions = useProviderOptions(cloudProvidersQuery.data);
 
   // A failed provider list only costs the filter, so it stays a dismissible
   // snackbar; a failed scans request replaces the grid it would have filled.
@@ -35,7 +36,7 @@ export default function App() {
       <div className="filters">
         <YearPicker value={year} onChange={setYear} disableFuture />
         <CloudPrivderSelect
-          options={toProviderOptions(cloudProvidersQuery.data ?? [])}
+          options={providerOptions}
           onChange={setSelectedProviders}
           selectedOptions={selectedProviders}
         />

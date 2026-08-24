@@ -12,5 +12,9 @@
   "legend.less": "פחות",
   "legend.more": "יותר",
   "legend.noScans": "אין סריקות",
-  "legend.range": "{{from}}–{{to}}% מהיום העמוס ביותר"
+  "legend.range": "{{from}}–{{to}}% מהיום העמוס ביותר",
+  "providers.aws": "אמזון AWS",
+  "providers.azure": "מיקרוסופט Azure",
+  "providers.gcp": "גוגל קלאוד",
+  "providers.microsoft365": "מיקרוסופט 365"
 }
