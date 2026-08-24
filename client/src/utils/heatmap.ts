@@ -118,21 +118,6 @@ export const getLevelPercentRange = (
   return { from: Math.round(fromRatio * 100) + 1, to: Math.round(toRatio * 100) };
 };
 
-/**
- * Classes for a single box. While a legend level is hovered, boxes of other
- * levels are dimmed — dimming the rest is what makes the hovered level read.
- */
-export const getBoxClassName = (
-  level: HeatmapLevel,
-  hoveredLevel: HeatmapLevel | null
-): string => {
-  const classNames = ['heatmap-box', `color${level}`];
-
-  if (hoveredLevel) {
-    classNames.push(
-      level === hoveredLevel ? 'heatmap-box--matched' : 'heatmap-box--dimmed'
-    );
-  }
-
-  return classNames.join(' ');
-};
+/** Classes for a single box. Hover dimming is css, keyed off the container. */
+export const getBoxClassName = (level: HeatmapLevel): string =>
+  `heatmap-box color${level}`;

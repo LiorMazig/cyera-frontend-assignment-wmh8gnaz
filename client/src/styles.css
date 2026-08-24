@@ -195,20 +195,33 @@ body {
 .heatmap-legend-swatch {
   width: 14px;
   height: 14px;
+  padding: 0;
+  border: none;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.heatmap-legend-swatch--active {
+.heatmap-legend-swatch:hover,
+.heatmap-legend-swatch:focus-visible {
   outline: 1px solid var(--box-outline);
   outline-offset: 1px;
 }
 
-.heatmap-box--dimmed {
+/*
+ * While a legend level is hovered or focused, every box of another level is
+ * dimmed and the matching ones are ringed — driven by the container attribute,
+ * so no box re-renders.
+ */
+.heatmap-container[data-hovered-level] .heatmap-box {
   opacity: 0.2;
 }
 
-.heatmap-box--matched {
+.heatmap-container[data-hovered-level='1'] .heatmap-box.color1,
+.heatmap-container[data-hovered-level='2'] .heatmap-box.color2,
+.heatmap-container[data-hovered-level='3'] .heatmap-box.color3,
+.heatmap-container[data-hovered-level='4'] .heatmap-box.color4,
+.heatmap-container[data-hovered-level='5'] .heatmap-box.color5 {
+  opacity: 1;
   outline: 1px solid var(--box-outline);
   outline-offset: -1px;
 }

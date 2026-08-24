@@ -4,14 +4,10 @@ import { HeatmapLevel } from '../types/heatmap';
 import { HEATMAP_LEVELS, getLevelPercentRange } from '../utils/heatmap';
 
 interface HeatmapLegendProps {
-  hoveredLevel: HeatmapLevel | null;
   onHoverLevel: (level: HeatmapLevel | null) => void;
 }
 
-export const HeatmapLegend = ({
-  hoveredLevel,
-  onHoverLevel,
-}: HeatmapLegendProps) => {
+export const HeatmapLegend = ({ onHoverLevel }: HeatmapLegendProps) => {
   const { t } = useTranslation();
 
   const getLevelLabel = (level: HeatmapLevel): string => {
@@ -24,14 +20,22 @@ export const HeatmapLegend = ({
     <div className="heatmap-legend">
       <span className="heatmap-legend-caption">{t('legend.less')}</span>
       {HEATMAP_LEVELS.map((level) => (
-        <Tooltip key={level} title={getLevelLabel(level)} arrow disableInteractive>
-          <div
-            className={`heatmap-legend-swatch color${level}${
-              hoveredLevel === level ? ' heatmap-legend-swatch--active' : ''
-            }`}
+        <Tooltip
+          key={level}
+          title={getLevelLabel(level)}
+          arrow
+          disableInteractive
+        >
+          {/* A button, so the highlight is reachable by keyboard as well as
+              by mouse — focus and hover drive the same callback. */}
+          <button
+            type="button"
+            className={`heatmap-legend-swatch color${level}`}
+            aria-label={getLevelLabel(level)}
             onMouseEnter={() => onHoverLevel(level)}
             onMouseLeave={() => onHoverLevel(null)}
-            aria-label={getLevelLabel(level)}
+            onFocus={() => onHoverLevel(level)}
+            onBlur={() => onHoverLevel(null)}
           />
         </Tooltip>
       ))}

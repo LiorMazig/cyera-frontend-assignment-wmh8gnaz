@@ -23,11 +23,14 @@ export const Heatmap = ({ scans, year }: HeatmapProps) => {
   }
 
   return (
-    <div className="heatmap-container">
-      <HeatmapLegend
-        hoveredLevel={hoveredLevel}
-        onHoverLevel={setHoveredLevel}
-      />
+    // The hovered level is an attribute rather than a class on every box: css
+    // dims the non-matching levels, so hovering the legend repaints without
+    // re-rendering a few hundred boxes and their tooltips.
+    <div
+      className="heatmap-container"
+      data-hovered-level={hoveredLevel ?? undefined}
+    >
+      <HeatmapLegend onHoverLevel={setHoveredLevel} />
       <div className="heatmap">
         {months.map(({ month, label, days }) => (
           <div className="heatmap-row" key={month}>
@@ -42,7 +45,7 @@ export const Heatmap = ({ scans, year }: HeatmapProps) => {
                 arrow
                 disableInteractive
               >
-                <div className={getBoxClassName(level, hoveredLevel)} />
+                <div className={getBoxClassName(level)} />
               </Tooltip>
             ))}
           </div>

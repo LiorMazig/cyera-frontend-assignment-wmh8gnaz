@@ -7,8 +7,13 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { COLOR_SCHEME_STORAGE_KEY } from '../constants';
+import { COLOR_SCHEME_STORAGE_KEY, PREFERS_LIGHT_QUERY } from '../constants';
 import { ColorScheme } from '../types/theme';
+import {
+  matchesMedia,
+  readStoredValue,
+  writeStoredValue,
+} from '../utils/storage';
 import { getOppositeColorScheme, resolveColorScheme } from '../utils/theme';
 
 export interface ColorSchemeContextValue {
@@ -22,8 +27,8 @@ export const ColorSchemeContext = createContext<
 >(undefined);
 
 const initialColorScheme = resolveColorScheme(
-  localStorage.getItem(COLOR_SCHEME_STORAGE_KEY),
-  window.matchMedia('(prefers-color-scheme: light)').matches
+  readStoredValue(COLOR_SCHEME_STORAGE_KEY),
+  matchesMedia(PREFERS_LIGHT_QUERY)
 );
 
 // Applied before the first paint, so a light-mode user never sees a dark frame.
@@ -41,7 +46,7 @@ export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
   // boxes without re-rendering them.
   useEffect(() => {
     document.documentElement.dataset.theme = colorScheme;
-    localStorage.setItem(COLOR_SCHEME_STORAGE_KEY, colorScheme);
+    writeStoredValue(COLOR_SCHEME_STORAGE_KEY, colorScheme);
   }, [colorScheme]);
 
   const toggleColorScheme = useCallback(

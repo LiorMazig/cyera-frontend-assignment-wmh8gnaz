@@ -1,8 +1,5 @@
 export const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
-/** Maximum days a month can have — the number of columns in a heatmap row. */
-export const MAX_DAYS_IN_MONTH = 31;
-
 export const MONTHS_IN_YEAR = 12;
 
 /**
@@ -15,3 +12,5 @@ export const SCANS_QUERY_KEY = 'scans';
 export const CLOUD_PROVIDERS_QUERY_KEY = 'cloud-providers';
 
 export const COLOR_SCHEME_STORAGE_KEY = 'cyera-heatmap-color-scheme';
+
+export const PREFERS_LIGHT_QUERY = '(prefers-color-scheme: light)';
