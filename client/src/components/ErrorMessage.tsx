@@ -1,5 +1,5 @@
 import { Alert, Snackbar } from '@mui/material';
-import { ApiError } from '../types/api';
+import { ApiError } from '../api/types';
 
 interface ErrorMessageProps {
   error: ApiError | undefined;

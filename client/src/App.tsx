@@ -1,68 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './styles.css';
 import { Heatmap } from './components/Heatmap';
 import { YearPicker } from './components/YearPicker';
 import { CloudPrivderSelect } from './components/CloudPrivderSelect';
 import { ErrorMessage } from './components/ErrorMessage';
-import { api } from './services/api';
-import { CloudProviderDto } from '../../common/dtos/cloud-provider.dto';
-import { ScanDto } from '../../common/dtos/scan.dto';
-import { ApiError } from './types/api';
+import { useCloudProviders } from './api/useCloudProviders';
+import { useScans } from './api/useScans';
+import { ApiError } from './api/types';
 
 export default function App() {
   const [year, setYear] = useState(new Date().getFullYear());
-  const [cloudProviders, setCloudProviders] = useState<CloudProviderDto[]>([]);
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
-  const [scans, setScans] = useState<ScanDto[]>([]);
-  const [error, setError] = useState<ApiError>();
+  const [dismissedError, setDismissedError] = useState<ApiError>();
 
-  const fetchCloudProviders = async () => {
-    const response = await api.getCloudProviders();
-    if (response.error) {
-      setError(response.error);
-    } else if (response.data) {
-      setCloudProviders(response.data);
-    }
-  };
+  const { data: cloudProviders = [], error: cloudProvidersError } =
+    useCloudProviders();
+  const { data: scans = [], error: scansError } = useScans(
+    year,
+    selectedProviders
+  );
 
-  const fetchScans = async () => {
-    const startDate = new Date(year, 0, 1).toISOString();
-    const endDate = new Date(year + 1, 0, 1).toISOString();
-    
-    const response = await api.getScans({
-      startDate,
-      endDate,
-      cloudProvidersIds: selectedProviders.length ? selectedProviders : undefined
-    });
-
-    if (response.error) {
-      setError(response.error);
-    } else if (response.data) {
-      setScans(response.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchCloudProviders();
-  }, []);
-
-  useEffect(() => {
-    fetchScans();
-  }, [year, selectedProviders]);
+  // react-query hands back a new error instance per failure, so dismissing one
+  // does not hide the next.
+  const error = scansError ?? cloudProvidersError ?? undefined;
+  const visibleError = error === dismissedError ? undefined : error;
 
   return (
     <div className="app">
-      <ErrorMessage error={error} onClose={() => setError(undefined)} />
+      <ErrorMessage
+        error={visibleError}
+        onClose={() => setDismissedError(error)}
+      />
       <div className="filters">
-        <YearPicker
-          value={year}
-          onChange={setYear}
-          disableFuture
-        />
+        <YearPicker value={year} onChange={setYear} disableFuture />
         <CloudPrivderSelect
-          options={cloudProviders.map(provider => ({
+          options={cloudProviders.map((provider) => ({
             displayName: provider.displayName,
-            value: provider.id
+            value: provider.id,
           }))}
           onChange={setSelectedProviders}
           selectedOptions={selectedProviders}

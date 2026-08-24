@@ -32,3 +32,14 @@ export const formatFullDate = (date: Date): string =>
     month: 'short',
     day: 'numeric',
   });
+
+/**
+ * Half-open ISO range covering a whole year in local time — `[startDate, endDate)`,
+ * matching how the server filters scans.
+ */
+export const getYearRange = (
+  year: number
+): { startDate: string; endDate: string } => ({
+  startDate: new Date(year, 0, 1).toISOString(),
+  endDate: new Date(year + 1, 0, 1).toISOString(),
+});

@@ -23,3 +23,6 @@ export const MONTH_LABELS = [
  * A day above the last bound is level 5; a day with no scans is level 1.
  */
 export const HEATMAP_LEVEL_RATIOS = [0.25, 0.5, 0.75] as const;
+
+export const SCANS_QUERY_KEY = 'scans';
+export const CLOUD_PROVIDERS_QUERY_KEY = 'cloud-providers';
