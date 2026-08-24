@@ -1,0 +1,12 @@
+{
+  "filters.cloudProviders": "ספקי ענן",
+  "filters.allProviders": "כל הספקים",
+  "errors.scansTitle": "טעינת הסריקות נכשלה",
+  "errors.cloudProvidersTitle": "טעינת ספקי הענן נכשלה",
+  "errors.unexpected": "אירעה שגיאה לא צפויה",
+  "actions.retry": "נסה שוב",
+  "heatmap.tooltip": "{{count}} סריקות ב-{{date}}",
+  "heatmap.tooltipSingle": "סריקה אחת ב-{{date}}",
+  "heatmap.empty": "אין ימים להצגה עבור {{year}}.",
+  "heatmap.loading": "טוען סריקות"
+}

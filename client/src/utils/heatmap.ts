@@ -1,7 +1,7 @@
 import { ScanDto } from '../../../common/dtos/scan.dto';
-import { HEATMAP_LEVEL_RATIOS, MONTH_LABELS } from '../constants';
+import { HEATMAP_LEVEL_RATIOS } from '../constants';
 import { HeatmapData, HeatmapLevel, HeatmapMonth } from '../types/heatmap';
-import { getDaysInMonth, getYesterday, toDateKey } from './date';
+import { getDaysInMonth, getMonthLabels, getYesterday, toDateKey } from './date';
 
 /** Number of scans per local calendar day, keyed by `YYYY-MM-DD`. */
 export const countScansByDay = (scans: ScanDto[]): Map<string, number> => {
@@ -52,7 +52,8 @@ export const getScanLevel = (
 export const buildHeatmapData = (
   scans: ScanDto[],
   year: number,
-  today: Date
+  today: Date,
+  locale: string
 ): HeatmapData => {
   const lastVisibleDate = getLastVisibleDate(year, today);
 
@@ -84,9 +85,11 @@ export const buildHeatmapData = (
     .flat()
     .reduce((max, { scanCount }) => Math.max(max, scanCount), 0);
 
+  const monthLabels = getMonthLabels(locale);
+
   const months: HeatmapMonth[] = visibleDays.map((days, month) => ({
     month,
-    label: MONTH_LABELS[month],
+    label: monthLabels[month],
     days: days.map((day) => ({
       ...day,
       level: getScanLevel(day.scanCount, maxDailyScans),

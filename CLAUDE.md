@@ -18,6 +18,7 @@ Logic never lives in a component. Split it:
 client/src/
   api/          the whole api layer — http calls, react-query hooks, api types
   components/   presentation only — JSX, props, styling
+  i18n/         locale json files, the translate function, the provider
   hooks/        React-coupled logic that is not api access (derived state)
   utils/        pure functions — no React, no side effects, independently testable
   types/        client-only types (view models, not api shapes)
@@ -34,6 +35,10 @@ Rules:
   `utils/` functions and `api/` hooks. No JSX.
 - **`components/`** — read props, render markup, wire callbacks. A component should not contain
   date math, reduce chains, or fetch logic. If a component needs it, extract to a util or hook.
+- **`i18n/`** — `locales/<lang>.json` holds every user-facing string, keyed flat
+  (`"errors.scansTitle"`). `en.json` is the contract: other locales are typed as
+  `Translations`, so a missing key fails the build. Dates and month names come from
+  `Intl` with the active locale, never from a locale file.
 - One primary export per file, named after the file.
 
 ## Data fetching
@@ -45,6 +50,14 @@ Rules:
 - Consume `isPending` / `isError` / `refetch` from react-query for loading, error, and retry UI
   rather than re-implementing them.
 - Keep the `QueryClientProvider` at the app root (`main.tsx`).
+
+## Strings
+
+- **No user-facing string in a component, util, or the api layer.** Components read them
+  via `useTranslation().t`; pure functions take the resolved text as a parameter.
+- `constants.ts` is for magic numbers and query keys, not copy.
+- Anything locale-dependent (dates, month names, number formats) uses `Intl` and the
+  `locale` from `useTranslation`.
 
 ## Conventions
 

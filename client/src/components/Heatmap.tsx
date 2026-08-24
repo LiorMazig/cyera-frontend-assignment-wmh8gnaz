@@ -1,6 +1,7 @@
 import Tooltip from '@mui/material/Tooltip';
 import { ScanDto } from '../../../common/dtos/scan.dto';
 import { useHeatmapData } from '../hooks/useHeatmapData';
+import { useTranslation } from '../hooks/useTranslation';
 import { formatFullDate } from '../utils/date';
 
 interface HeatmapProps {
@@ -10,9 +11,10 @@ interface HeatmapProps {
 
 export const Heatmap = ({ scans, year }: HeatmapProps) => {
   const { months } = useHeatmapData(scans, year);
+  const { t, locale } = useTranslation();
 
   if (!months.length) {
-    return <div className="heatmap-empty">No days to display for {year}.</div>;
+    return <div className="heatmap-empty">{t('heatmap.empty', { year })}</div>;
   }
 
   return (
@@ -23,7 +25,10 @@ export const Heatmap = ({ scans, year }: HeatmapProps) => {
           {days.map(({ dateKey, date, scanCount, level }) => (
             <Tooltip
               key={dateKey}
-              title={`${scanCount} scans on ${formatFullDate(date)}`}
+              title={t(
+                scanCount === 1 ? 'heatmap.tooltipSingle' : 'heatmap.tooltip',
+                { count: scanCount, date: formatFullDate(date, locale) }
+              )}
               arrow
               disableInteractive
             >

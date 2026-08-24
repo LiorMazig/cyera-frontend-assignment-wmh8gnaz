@@ -1,8 +1,8 @@
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import { RETRY_LABEL } from '../constants';
 import { ApiError } from '../api/types';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface ErrorMessageProps {
   error: ApiError | undefined;
@@ -10,7 +10,13 @@ interface ErrorMessageProps {
   onRetry?: () => void;
 }
 
-export const ErrorMessage = ({ error, onClose, onRetry }: ErrorMessageProps) => {
+export const ErrorMessage = ({
+  error,
+  onClose,
+  onRetry,
+}: ErrorMessageProps) => {
+  const { t } = useTranslation();
+
   if (!error) return null;
 
   return (
@@ -27,12 +33,12 @@ export const ErrorMessage = ({ error, onClose, onRetry }: ErrorMessageProps) => 
         action={
           onRetry && (
             <Button color="inherit" size="small" onClick={onRetry}>
-              {RETRY_LABEL}
+              {t('actions.retry')}
             </Button>
           )
         }
       >
-        {error.message}
+        {error.message || t('errors.unexpected')}
       </Alert>
     </Snackbar>
   );

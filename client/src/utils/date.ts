@@ -1,4 +1,4 @@
-import { ONE_DAY_IN_MS } from '../constants';
+import { MONTHS_IN_YEAR, ONE_DAY_IN_MS } from '../constants';
 
 /** Midnight, local time, of the given date. */
 export const startOfDay = (date: Date): Date =>
@@ -26,12 +26,24 @@ export const toDateKey = (date: Date): string => {
   return `${date.getFullYear()}-${month}-${day}`;
 };
 
-export const formatFullDate = (date: Date): string =>
-  date.toLocaleDateString(undefined, {
+export const formatFullDate = (date: Date, locale: string): string =>
+  date.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   });
+
+/**
+ * Short month names for a locale, straight from `Intl` — no locale file needs
+ * to carry twelve hand-translated month names.
+ */
+export const getMonthLabels = (locale: string): string[] => {
+  const formatter = new Intl.DateTimeFormat(locale, { month: 'short' });
+
+  return Array.from({ length: MONTHS_IN_YEAR }, (_, month) =>
+    formatter.format(new Date(2000, month, 1))
+  );
+};
 
 /**
  * Half-open ISO range covering a whole year in local time — `[startDate, endDate)`,

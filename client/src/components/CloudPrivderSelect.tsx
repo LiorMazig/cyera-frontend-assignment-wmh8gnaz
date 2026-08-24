@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { CLOUD_PROVIDERS_LABEL } from '../constants';
+import { useTranslation } from '../hooks/useTranslation';
 import { SelectOption } from '../types/select';
 import { getSelectedProvidersLabel } from '../utils/cloud-providers';
 
@@ -31,6 +31,8 @@ export const CloudPrivderSelect = ({
   onChange,
   selectedOptions = [],
 }: SelectProps) => {
+  const { t } = useTranslation();
+
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -42,7 +44,7 @@ export const CloudPrivderSelect = ({
     <div className={'select'}>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="cloud-providers-label" shrink sx={{ color: 'white' }}>
-          {CLOUD_PROVIDERS_LABEL}
+          {t('filters.cloudProviders')}
         </InputLabel>
         <Select
           style={{ color: 'white' }}
@@ -52,8 +54,14 @@ export const CloudPrivderSelect = ({
           displayEmpty
           value={selectedOptions}
           onChange={handleChange}
-          input={<OutlinedInput notched label={CLOUD_PROVIDERS_LABEL} />}
-          renderValue={(selected) => getSelectedProvidersLabel(selected, options)}
+          input={<OutlinedInput notched label={t('filters.cloudProviders')} />}
+          renderValue={(selected) =>
+            getSelectedProvidersLabel(
+              selected,
+              options,
+              t('filters.allProviders')
+            )
+          }
           MenuProps={MenuProps}
         >
           {options.map((option) => (

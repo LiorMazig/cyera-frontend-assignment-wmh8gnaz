@@ -1,0 +1,12 @@
+{
+  "filters.cloudProviders": "Cloud Providers",
+  "filters.allProviders": "All providers",
+  "errors.scansTitle": "Couldn't load scans",
+  "errors.cloudProvidersTitle": "Couldn't load cloud providers",
+  "errors.unexpected": "An unexpected error occurred",
+  "actions.retry": "Retry",
+  "heatmap.tooltip": "{{count}} scans on {{date}}",
+  "heatmap.tooltipSingle": "1 scan on {{date}}",
+  "heatmap.empty": "No days to display for {{year}}.",
+  "heatmap.loading": "Loading scans"
+}

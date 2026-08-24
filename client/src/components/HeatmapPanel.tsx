@@ -1,5 +1,5 @@
 import { ScanDto } from '../../../common/dtos/scan.dto';
-import { SCANS_ERROR_TITLE } from '../constants';
+import { useTranslation } from '../hooks/useTranslation';
 import { ErrorState } from './ErrorState';
 import { Heatmap } from './Heatmap';
 import { HeatmapSkeleton } from './HeatmapSkeleton';
@@ -24,10 +24,12 @@ export const HeatmapPanel = ({
   isFetching,
   onRetry,
 }: HeatmapPanelProps) => {
+  const { t } = useTranslation();
+
   if (isError) {
     return (
       <ErrorState
-        title={SCANS_ERROR_TITLE}
+        title={t('errors.scansTitle')}
         message={errorMessage}
         onRetry={onRetry}
         isRetrying={isFetching}
