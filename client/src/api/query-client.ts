@@ -12,6 +12,9 @@ export const queryClient = new QueryClient({
     queries: {
       staleTime: Infinity,
       gcTime: Infinity,
+      // Surface failures instead of hiding them behind silent retries — the
+      // retry button is the explicit way to try again.
+      retry: 0,
     },
   },
 });

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './styles.css';
-import { Heatmap } from './components/Heatmap';
 import { YearPicker } from './components/YearPicker';
 import { CloudPrivderSelect } from './components/CloudPrivderSelect';
 import { ErrorMessage } from './components/ErrorMessage';
+import { HeatmapPanel } from './components/HeatmapPanel';
 import { useCloudProviders } from './api/useCloudProviders';
 import { useScans } from './api/useScans';
 import { ApiError } from './api/types';
@@ -14,33 +14,41 @@ export default function App() {
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [dismissedError, setDismissedError] = useState<ApiError>();
 
-  const { data: cloudProviders = [], error: cloudProvidersError } =
-    useCloudProviders();
-  const { data: scans = [], error: scansError } = useScans(
-    year,
-    selectedProviders
-  );
+  const cloudProvidersQuery = useCloudProviders();
+  const scansQuery = useScans(year, selectedProviders);
 
+  // A failed provider list only costs the filter, so it stays a dismissible
+  // snackbar; a failed scans request replaces the grid it would have filled.
   // react-query hands back a new error instance per failure, so dismissing one
   // does not hide the next.
-  const error = scansError ?? cloudProvidersError ?? undefined;
-  const visibleError = error === dismissedError ? undefined : error;
+  const providersError = cloudProvidersQuery.error ?? undefined;
+  const visibleProvidersError =
+    providersError === dismissedError ? undefined : providersError;
 
   return (
     <div className="app">
       <ErrorMessage
-        error={visibleError}
-        onClose={() => setDismissedError(error)}
+        error={visibleProvidersError}
+        onClose={() => setDismissedError(providersError)}
+        onRetry={() => cloudProvidersQuery.refetch()}
       />
       <div className="filters">
         <YearPicker value={year} onChange={setYear} disableFuture />
         <CloudPrivderSelect
-          options={toProviderOptions(cloudProviders)}
+          options={toProviderOptions(cloudProvidersQuery.data ?? [])}
           onChange={setSelectedProviders}
           selectedOptions={selectedProviders}
         />
       </div>
-      <Heatmap scans={scans} year={year} />
+      <HeatmapPanel
+        scans={scansQuery.data ?? []}
+        year={year}
+        isPending={scansQuery.isPending}
+        isError={scansQuery.isError}
+        errorMessage={scansQuery.error?.message}
+        isFetching={scansQuery.isFetching}
+        onRetry={() => scansQuery.refetch()}
+      />
     </div>
   );
 }

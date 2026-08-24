@@ -84,3 +84,47 @@ body {
   font-size: 14px;
   color: #9e9e9e;
 }
+
+.heatmap-box--loading {
+  background: #2a2a2a;
+  animation: heatmap-box-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes heatmap-box-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 24px;
+  width: fit-content;
+  background-color: #242424;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+}
+
+.error-state-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.error-state-message {
+  font-size: 14px;
+  color: #9e9e9e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heatmap-box--loading {
+    animation: none;
+    opacity: 0.6;
+  }
+}
